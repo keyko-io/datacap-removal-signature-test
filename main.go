@@ -36,8 +36,10 @@ func main() {
 		RemovalProposalID: verifregst.RmDcProposalID{ProposalID: 0},
 	}
 
-	buf := bytes.Buffer{}
-	if err := removeProposal.MarshalCBOR(&buf); err != nil {
+	buf := new(bytes.Buffer)
+	buf.WriteString("SignatureDomainSeparation_RemoveDataCap")
+	err = removeProposal.MarshalCBOR(buf)
+	if err != nil {
 		fmt.Println("Error in CBOR marshalling:", err)
 		return
 	}
